@@ -8,9 +8,11 @@ app.use(cors());
 
 // Routers
 const moviesRouter = require("./movies/movies.router");
+const theatersRouter = require("./theaters/theaters.router")
 
 // Routes
 app.use("/movies", moviesRouter);
+app.use("/theaters", theatersRouter);
 
 // Error handlers
 const errorHandler = require("./errors/errorHandler");
