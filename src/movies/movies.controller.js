@@ -29,7 +29,15 @@ function read(req, res) {
   res.json({ data });
 }
 
+function reviews(req, res) {
+  const movie = res.locals.movie;
+  service.
+    reviews(movie.movie_id)
+    .then(data => res.json({ data }));
+}
+
 module.exports = {
   list,
   read: [movieExists, read],
+  reviews: [movieExists, reviews]
 }
