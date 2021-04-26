@@ -41,6 +41,14 @@ function update(req, res, next) {
     .catch(next);
 }
 
+function destroy(req, res, next) {
+  service
+    .delete(res.locals.review.review_id)
+    .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
 module.exports = {
-  update: [reviewExists, update]
+  update: [reviewExists, update],
+  delete: [reviewExists, destroy]
 }
