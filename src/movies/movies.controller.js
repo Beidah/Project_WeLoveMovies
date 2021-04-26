@@ -1,5 +1,19 @@
 const service = require("./movies.service");
 
+function movieExists(req, res, next) {
+  const { movieId } = req.params;
+  service
+    .read(movieId)
+    .then((movie) => {
+      if (movie) {
+        res.locals.movie = movie;
+        return next();
+      }
+      next({ status: 404, message: `Movie cannot be found: ${movieId}`});
+    })
+    .catch(next);
+}
+
 // Routes
 
 function list(req, res, next) {
@@ -10,6 +24,12 @@ function list(req, res, next) {
     .catch(next);
 }
 
+function read(req, res) {
+  const data = res.locals.movie;
+  res.json({ data });
+}
+
 module.exports = {
   list,
+  read: [movieExists, read],
 }

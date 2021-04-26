@@ -1,5 +1,11 @@
 const knex = require("../db/connection");
 
+function read(movie_id) {
+  return knex("movies")
+    .where({ movie_id })
+    .first();
+}
+
 function list(is_showing) {
   if (is_showing === undefined) {
     return knex("movies");
@@ -14,5 +20,6 @@ function list(is_showing) {
 }
 
 module.exports = {
-  list
+  list,
+  read
 }
