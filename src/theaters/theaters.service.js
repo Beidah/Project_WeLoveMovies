@@ -15,6 +15,15 @@ function list() {
     .then(reduceMovies);
 }
 
+function listByMovie(movie_id) {
+  return knex("theaters as t")
+    .join("movies_theaters as mt", "t.theater_id", "mt.theater_id")
+    .join("movies as m", "mt.movie_id", "m.movie_id")
+    .select("t.*", "m.movie_id")
+    .where({ "m.movie_id": Number(movie_id) });
+}
+
 module.exports = {
-  list
+  list,
+  listByMovie
 }

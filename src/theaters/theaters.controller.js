@@ -1,8 +1,9 @@
 const service = require("./theaters.service");
 
 function list(req, res, next) {
-  service
-    .list()
+  const { movieId } = req.params;
+  const fetch = movieId ? service.listByMovie : service.list;
+  fetch(movieId)
     .then((data) => res.json({ data }))
     .catch(next);
 }
